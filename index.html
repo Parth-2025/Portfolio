@@ -17,8 +17,8 @@
     --radius:8px;
     --shadow: 0 1px 2px rgba(53,53,53,0.04), 0 2px 8px rgba(53,53,53,0.05);
     /* one shared fluid width + gutter that every section aligns to */
-    --maxw: min(1600px, 94vw);
-    --pad-x: clamp(16px, 4.5vw, 56px);
+    --maxw: min(1560px, 93vw);
+    --pad-x: clamp(18px, 4vw, 56px);
   }
   *{box-sizing:border-box;}
   html{ scroll-behavior:smooth; }
@@ -93,7 +93,9 @@
   /* ---------- Layout: sticky helix + content ---------- */
   .layout{
     max-width:var(--maxw); margin:0 auto; padding:0 var(--pad-x) 40px;
-    display:grid; grid-template-columns:clamp(320px, 27vw, 440px) 1fr; gap:clamp(32px, 4vw, 60px);
+    display:grid; justify-content:center;
+    grid-template-columns:clamp(210px, 16vw, 270px) minmax(0, 1180px);
+    gap:clamp(32px, 4vw, 68px);
   }
   .helix-col{
     position:sticky; top:24px; height:calc(100vh - 48px);
@@ -153,7 +155,7 @@
   .tl-body{ flex:1; }
   .tl-when{ color:var(--charcoal); opacity:0.55; font-size:12.5px; margin-bottom:2px; }
   .tl-body h3{ font-size:15.5px; margin-bottom:4px; }
-  .tl-body p{ margin:0; color:var(--charcoal); opacity:0.75; font-size:14.5px; max-width:52ch; }
+  .tl-body p{ margin:0; color:var(--charcoal); opacity:0.75; font-size:14.5px; max-width:70ch; }
 
   /* ---------- Media placeholder ---------- */
   .media-frame{
@@ -185,13 +187,13 @@
   .callout.ask .label{ color:var(--navy); }
 
   .note{ font-size:12.5px; color:var(--charcoal); opacity:0.55; font-style:italic; margin-top:8px; }
-  .lesson{ font-size:13.5px; color:var(--charcoal); opacity:0.72; margin-top:8px; max-width:52ch; }
+  .lesson{ font-size:13.5px; color:var(--charcoal); opacity:0.72; margin-top:8px; max-width:70ch; }
   .lesson b{ color:var(--teal); font-weight:600; }
 
   .build-row{ padding:16px 0; border-top:1px solid var(--grey); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
   .build-row:first-of-type{ border-top:none; }
   .build-row h3{ font-size:16.5px; margin-bottom:5px; }
-  .build-row p{ color:var(--charcoal); opacity:0.75; margin:0; max-width:46ch; font-size:14.5px; }
+  .build-row p{ color:var(--charcoal); opacity:0.75; margin:0; max-width:64ch; font-size:14.5px; }
   .build-row .link{ white-space:nowrap; font-size:13.5px; align-self:flex-start; font-weight:600; }
 
   footer{ padding:50px 0 70px; text-align:center; }
@@ -511,7 +513,7 @@
   var captionTitle = document.getElementById('captionTitle');
   var captionTeaser = document.getElementById('captionTeaser');
 
-  var H = 1400, STEP = 20, AMP = 85, FREQ = 0.012, CX = 140;
+  var H = 1400, STEP = 20, AMP = 112, FREQ = 0.012, CX = 140;
 
   function strandPath(phase){
     var d = '';
