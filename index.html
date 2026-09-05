@@ -166,6 +166,8 @@
   .callout.ask .label{ color:var(--navy); }
 
   .note{ font-size:12.5px; color:var(--charcoal); opacity:0.55; font-style:italic; margin-top:8px; }
+  .lesson{ font-size:13.5px; color:var(--charcoal); opacity:0.72; margin-top:8px; max-width:52ch; }
+  .lesson b{ color:var(--teal); font-weight:600; }
 
   .build-row{ padding:16px 0; border-top:1px solid var(--grey); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
   .build-row:first-of-type{ border-top:none; }
@@ -175,6 +177,8 @@
 
   footer{ padding:50px 0 70px; text-align:center; }
   footer h2{ font-size:21px; margin-bottom:16px; }
+  footer .shell-pitch{ max-width:58ch; margin:0 auto; font-size:14.5px; color:var(--charcoal); opacity:0.8; text-align:left; }
+  footer h2.small{ font-size:17px; margin:30px 0 14px; }
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
@@ -249,6 +253,7 @@
               <div class="tl-when">Jun–Jul 2024</div>
               <h3>Simcoach Games — Software Team Lead</h3>
               <p>Led an 8-person agile team building a performance-optimized Unity kitchen simulation, engineering chunk-based germ-spread algorithms in C#.</p>
+              <p class="lesson"><b>What I learned:</b> the first version recalculated germ spread across the entire kitchen every frame and the game stuttered badly. Splitting the map into chunks and only updating active ones fixed it — and taught me to profile where the time actually goes before rewriting anything. Coordinating eight people who all touched the same scene files was its own problem; we didn't set merge conventions early and lost a day to it.</p>
             </div>
           </div>
           <div class="tl-item" data-node="Computer Society" data-teaser="Managing an agentic AI build end to end">
@@ -335,6 +340,7 @@
           <div>
             <h3>Coach Connect</h3>
             <p>A UMD marketplace pairing students with student-athletes for affordable, sport-specific coaching. Built the backend, MongoDB schema, and UMD SSO auth to support 40,000+ students.</p>
+            <p class="lesson"><b>What I learned:</b> I first modeled coaches and students as two separate collections, so every booking meant stitching data across both and the queries got ugly fast. Collapsing them into one profile model with a role field made the whole app simpler — I now sketch the core data model before writing endpoints, not after.</p>
           </div>
           <a class="link" href="https://github.com/Open-Sourcery-UMD/coachconnect" target="_blank" rel="noopener">View on GitHub</a>
         </div>
@@ -343,6 +349,7 @@
           <div>
             <h3>Github_PRReview</h3>
             <p>A code-change-risk agent: builds an import graph for a repo, scores how far a pull request's changes could ripple, and uses an LLM to separate real dead code from false positives. Built for a Palantir AIP submission.</p>
+            <p class="lesson"><b>What I learned:</b> the pure static import-graph pass flagged tons of "dead" code that wasn't — dynamic imports, reflection, framework entry points. The graph alone wasn't trustworthy. Layering an LLM verification step on top of it was what made the output something a reviewer would actually act on, and it changed how I think about when to reach for static analysis vs. a model.</p>
           </div>
           <a class="link" href="https://github.com/Parth-2025/Github_PRReview" target="_blank" rel="noopener">View on GitHub</a>
         </div>
@@ -357,7 +364,11 @@
       </section>
 
       <footer id="contact" data-node="Startup Shell" data-teaser="Where I want to build next">
-        <h2>Get in touch</h2>
+        <h2>What I'd do in the Shell</h2>
+        <p class="shell-pitch">
+          I want to build Bite Right in the space instead of alone in my dorm. That means bringing it to build nights, pulling in people who know ML and design, and getting the blunt "why would anyone use this" feedback that only a room of other founders gives you. From the KinetiQ work I could run a short, hands-on session on pose estimation and computer vision for anyone who wants to add it to their own project. And I'm happy to be the person other teams grab when they're wiring an LLM into something real and it's not behaving — that's the part I've spent the most time on. Mostly I want to be in the space every week, shipping and helping other people ship.
+        </p>
+        <h2 class="small">Get in touch</h2>
         <div class="contact-icons">
           <a class="icon-btn" href="https://github.com/Parth-2025" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49v-1.71c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.32 2.74-1.05 2.74-1.05.56 1.42.21 2.47.11 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2Z"/></svg>
