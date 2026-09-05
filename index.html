@@ -17,8 +17,8 @@
     --radius:8px;
     --shadow: 0 1px 2px rgba(53,53,53,0.04), 0 2px 8px rgba(53,53,53,0.05);
     /* one shared fluid width + gutter that every section aligns to */
-    --maxw: min(1560px, 93vw);
-    --pad-x: clamp(18px, 4vw, 56px);
+    --maxw: min(1380px, 92vw);
+    --pad-x: clamp(18px, 4vw, 52px);
   }
   *{box-sizing:border-box;}
   html{ scroll-behavior:smooth; }
@@ -94,8 +94,8 @@
   .layout{
     max-width:var(--maxw); margin:0 auto; padding:0 var(--pad-x) 40px;
     display:grid; justify-content:center;
-    grid-template-columns:clamp(210px, 16vw, 270px) minmax(0, 1180px);
-    gap:clamp(32px, 4vw, 68px);
+    grid-template-columns:clamp(210px, 17vw, 270px) minmax(0, 1010px);
+    gap:clamp(30px, 3.5vw, 56px);
   }
   .helix-col{
     position:sticky; top:24px; height:calc(100vh - 48px);
@@ -141,7 +141,7 @@
     box-shadow:var(--shadow); padding:clamp(20px,3vw,32px);
   }
   /* keep line length readable even when the column gets wide on large monitors */
-  .card > p, .callout p{ max-width:74ch; }
+  .card > p, .callout p{ max-width:78ch; }
 
   /* ---------- Journey timeline ---------- */
   .timeline{ margin-top:8px; }
@@ -155,7 +155,7 @@
   .tl-body{ flex:1; }
   .tl-when{ color:var(--charcoal); opacity:0.55; font-size:12.5px; margin-bottom:2px; }
   .tl-body h3{ font-size:15.5px; margin-bottom:4px; }
-  .tl-body p{ margin:0; color:var(--charcoal); opacity:0.75; font-size:14.5px; max-width:70ch; }
+  .tl-body p{ margin:0; color:var(--charcoal); opacity:0.75; font-size:14.5px; max-width:76ch; }
 
   /* ---------- Media placeholder ---------- */
   .media-frame{
@@ -187,7 +187,7 @@
   .callout.ask .label{ color:var(--navy); }
 
   .note{ font-size:12.5px; color:var(--charcoal); opacity:0.55; font-style:italic; margin-top:8px; }
-  .lesson{ font-size:13.5px; color:var(--charcoal); opacity:0.72; margin-top:8px; max-width:70ch; }
+  .lesson{ font-size:13.5px; color:var(--charcoal); opacity:0.72; margin-top:8px; max-width:76ch; }
   .lesson b{ color:var(--teal); font-weight:600; }
 
   .build-row{ padding:16px 0; border-top:1px solid var(--grey); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
