@@ -165,6 +165,11 @@
     color:var(--charcoal); opacity:0.65; font-size:14px; margin:20px 0; text-align:center; padding:20px;
   }
   video.media-frame{ display:block; width:100%; opacity:1; }
+  .demo-video{
+    display:block; width:100%; margin:20px 0;
+    border:1px solid var(--grey); border-radius:var(--radius);
+    background:#000;
+  }
 
   .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
   .tag{
@@ -342,10 +347,12 @@
         <div class="card">
           <p>A web app that flags allergens before you eat. You upload a photo of a food or its label, and Bite Right checks it against your restrictions and surfaces what's risky — no ingredient-label detective work required. The detection logic currently runs at 95% accuracy.</p>
 
-          <!-- TODO(Parth): add a screenshot or short screen-recording of the upload -> results flow here. -->
-          <div class="media-frame">
-            Screenshot or short clip of the upload → allergen results flow
-          </div>
+          <video class="demo-video" controls muted playsinline preload="metadata"
+                 poster="biteright-poster.jpg" aria-label="Bite Right demo: uploading a food photo and getting an allergen check">
+            <source src="biteright-demo.mp4" type="video/mp4">
+            <a href="biteright-demo.mp4">Download the Bite Right demo video</a>.
+          </video>
+          <p class="note">~35-second walkthrough: upload a food photo → Bite Right checks it against your restrictions → flags what's risky.</p>
 
           <div class="callout ask">
             <div class="label">What would move this forward</div>
