@@ -69,14 +69,14 @@
   .hero{ max-width:var(--maxw); margin:0 auto; padding:clamp(32px,5vw,56px) var(--pad-x) clamp(40px,6vw,64px); text-align:center; }
   .avatar-wrap{ display:flex; justify-content:center; margin-bottom:22px; }
   .avatar{
-    width:96px; height:96px; border-radius:50%;
-    object-fit:cover; border:3px solid var(--white);
+    width:clamp(150px, 18vw, 190px); height:clamp(150px, 18vw, 190px); border-radius:50%;
+    object-fit:cover; border:4px solid var(--white);
     box-shadow:var(--shadow);
   }
   .avatar-fallback{
-    display:none; width:96px; height:96px; border-radius:50%;
+    display:none; width:clamp(150px, 18vw, 190px); height:clamp(150px, 18vw, 190px); border-radius:50%;
     background:var(--navy); color:var(--white); align-items:center; justify-content:center;
-    font-size:28px; font-weight:700; box-shadow:var(--shadow);
+    font-size:clamp(42px, 6vw, 58px); font-weight:700; box-shadow:var(--shadow);
   }
   .hero h1{ font-size:clamp(28px,4.6vw,50px); max-width:16ch; margin:0 auto; }
   .hero p.sub{ color:var(--charcoal); opacity:0.72; font-size:clamp(15px,1.1vw,18px); margin:18px auto 0; max-width:56ch; }
@@ -189,6 +189,7 @@
   }
   .callout .label{ font-size:12.5px; color:var(--teal); font-weight:700; margin-bottom:6px; }
   .callout p{ margin:0; color:var(--charcoal); font-size:14.5px; }
+  .callout p + p{ margin-top:12px; }
   .callout.ask{ background:rgba(40,75,99,0.06); border-left-color:var(--navy); }
   .callout.ask .label{ color:var(--navy); }
 
@@ -236,7 +237,6 @@
            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="avatar-fallback">PM</div>
     </div>
-    <h1>I build AI systems people actually use.</h1>
     <p class="sub">CS &amp; Machine Learning at the University of Maryland. I like taking AI out of the demo and into something that holds up under real load, real users, and real edge cases.</p>
 
     <div class="contact-icons">
@@ -270,9 +270,8 @@
 
     <div class="content-col">
 
-      <section id="journey" data-node="Journey" data-teaser="Where the builder habit started">
-        <div class="kicker">My journey</div>
-        <h2>How I got here</h2>
+      <section id="journey" data-node="My journey" data-teaser="Where the builder habit started">
+        <h2>My journey</h2>
         <div class="timeline">
           <div class="tl-item" data-node="Simcoach Games" data-teaser="Led 8 engineers through a full Unity SDLC">
             <div class="tl-marker">1</div>
@@ -334,7 +333,13 @@
 
           <div class="callout">
             <div class="label">The hard part</div>
-            <p>Pose estimation is compute-heavy, and under real load the backend would skip frames or stall completely — a demo that works with one user falls over with fifty. I had to redesign the architecture to spread processing evenly across servers instead of relying on one bottleneck. It's the difference between a feature that works in a demo and one that works in production.</p>
+            <p>The difficult part of creating this app was the integration of MediaPipe into this software. Determining the pose estimations was extremely compute-heavy, and under a real load the backend would skip frames or stall completely. I had to redesign the architecture to be able to have a system to split the uploaded videos into snapshots every so many seconds to identify the frame with the pose detection.</p>
+          </div>
+
+          <div class="callout">
+            <div class="label">What I learned</div>
+            <p>KinetiQ taught me more about what can break and what worked. I spent days addressing scaling failures, as it was one of my biggest issues. Under a real load, MediaPipe would skip frames or stall completely. I had to go back and redesign the architecture to cleanly distribute processing evenly. Another issue I faced was Auth0. This was my first time using it, and many times the small issues ended up being the hardest issues to track and resolve: tokens needed to be refreshed properly, wiring the callback URLs correctly, and making sure Auth0 persisted in the app correctly. None of it was conceptually hard; however, it was a real reminder that integrating a new tool always costs more time than expected.</p>
+            <p>The lesson that stuck with me afterward was that a feature working in a demo versus production are two different problems altogether, and I did not understand that gap until I hit it myself.</p>
           </div>
         </div>
       </section>
@@ -343,6 +348,7 @@
         <div class="kicker">What I'm building now</div>
         <h2>Bite Right</h2>
         <div class="card">
+          <p>BiteRight came about because I found myself constantly observing my friends and family having to ask the same repetitive questions each time they ate a meal together, stopping someone working as a waiter and saying, &ldquo;Are there peanuts in this?&rdquo; or &ldquo;Is there any dairy in the sauce?&rdquo;, and praying that the response was correct. At times, employees did not even know what ingredients were in some dishes, especially the sauces, marinades, or foods that were prepared in the kitchen. Such uncertainty is nerve-racking, and it should not be the burden of having to eat out when one is on a certain diet.</p>
           <p>A web app that flags allergens before you eat. You upload a photo of a food or its label, and Bite Right checks it against your restrictions and surfaces what's risky — no ingredient-label detective work required. The detection logic currently runs at 95% accuracy.</p>
 
           <video class="demo-video" controls muted playsinline preload="metadata"
@@ -354,7 +360,7 @@
 
           <div class="callout ask">
             <div class="label">What would move this forward</div>
-            <p>The current version runs on rule-based detection logic. The next step is training a proper model to get more accurate and handle more foods and restrictions — which mainly needs funding and support, not just engineering time. That's the piece I'd want to work on at Startup Shell.</p>
+            <p>The current version runs on rule-based detection logic. The next step is training a proper model to get more accurate and handle more foods and restrictions, which mainly needs funding and support, not just engineering time. That's the piece I'd want to work on at Startup Shell.</p>
           </div>
         </div>
       </section>
@@ -393,7 +399,7 @@
       <footer id="contact" data-node="Startup Shell" data-teaser="Where I want to build next">
         <h2>What I'd do in the Shell</h2>
         <p class="shell-pitch">
-          I want to build Bite Right in the space instead of alone in my dorm. That means bringing it to build nights, pulling in people who know ML and design, and getting the blunt "why would anyone use this" feedback that only a room of other founders gives you. From the KinetiQ work I could run a short, hands-on session on pose estimation and computer vision for anyone who wants to add it to their own project. And I'm happy to be the person other teams grab when they're wiring an LLM into something real and it's not behaving — that's the part I've spent the most time on. Mostly I want to be in the space every week, shipping and helping other people ship.
+          I also want to build Bite Right in the space instead of alone in my dorm. That means bringing these ideas to grind nights, asking people who know ML and design, getting constructive feedback from peers that only a room of other founders would give me. I also want Shell to go both ways. I would love to pitch Bite Right and my other ideas to people working on their own projects — not just to get feedback, but because I am genuinely curious what other people are building and want to engage and learn from their past experiences and problems that they faced. I'd want to explore jumping in and building alongside them. From the KinetiQ work I could run a short, hands-on session on pose estimation and computer vision for anyone who wants to add it to their own project. And I am happy to be the person other teams grab when they are wiring a model into something real.
         </p>
         <h2 class="small">Get in touch</h2>
         <div class="contact-icons">
