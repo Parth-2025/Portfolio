@@ -350,7 +350,7 @@
         <h2>Bite Right</h2>
         <div class="card">
           <p>BiteRight came about because I found myself constantly observing my friends and family having to ask the same repetitive questions each time they ate a meal together, stopping someone working as a waiter and saying, &ldquo;Are there peanuts in this?&rdquo; or &ldquo;Is there any dairy in the sauce?&rdquo;, and praying that the response was correct. At times, employees did not even know what ingredients were in some dishes, especially the sauces, marinades, or foods that were prepared in the kitchen. Such uncertainty is nerve-racking, and it should not be the burden of having to eat out when one is on a certain diet.</p>
-          <p>A web app that flags allergens before you eat. You upload a photo of a food or its label, and Bite Right checks it against your restrictions and surfaces what's risky — no ingredient-label detective work required. The detection logic currently runs at 95% accuracy.</p>
+          <p>Food item detector for allergic people prior to consumption. Upload an image of the food product or label, and Bite Right analyzes it for you, giving you an output of everything you should avoid according to your conditions without having to go through the label yourself. The current detection success rate is 95%.</p>
 
           <video class="demo-video" controls muted playsinline preload="metadata"
                  poster="biteright-poster.jpg" aria-label="Bite Right demo: uploading a food photo and getting an allergen check">
@@ -471,17 +471,6 @@
     ctx.clearRect(0, 0, W, Hpx);
 
     var mActive = mouse.x > -9998;
-
-    // soft glow trailing the cursor
-    if (mActive){
-      var glow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, CURSOR_DIST * 0.7);
-      glow.addColorStop(0, 'rgba(60,110,113,0.10)');
-      glow.addColorStop(1, 'rgba(60,110,113,0)');
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, CURSOR_DIST * 0.7, 0, Math.PI * 2);
-      ctx.fill();
-    }
 
     for (var i = 0; i < particles.length; i++){
       var p = particles[i];
