@@ -308,14 +308,12 @@
         <div class="card">
           <p>Upload a video of your swing, shot, or throw — KinetiQ breaks your form down phase by phase and tells you exactly what to fix, using pose estimation instead of a coach.</p>
 
-          <!-- TODO(Parth): replace this placeholder with your real demo video.
-               e.g. <video class="media-frame" controls poster="thumbnail.jpg">
-                      <source src="kinetiq-demo.mp4" type="video/mp4">
-                    </video>
-               Keep it to 60–90 seconds: show the upload, the phase breakdown, and one more screen. -->
-          <div class="media-frame">
-            Demo video goes here — 60–90 sec walkthrough of upload → phase breakdown → feedback
-          </div>
+          <video class="demo-video" controls muted playsinline preload="metadata"
+                 poster="kinetiq-poster.jpg" aria-label="KinetiQ demo: uploading a video and getting a phase-by-phase form breakdown">
+            <source src="kinetiq-demo.mp4" type="video/mp4">
+            <a href="kinetiq-demo.mp4">Download the KinetiQ demo video</a>.
+          </video>
+          <p class="note">Walkthrough: upload a video → KinetiQ isolates the phases of the motion → scores each one and flags what to fix.</p>
 
           <div class="phases">
             <div class="phase"><div class="num">01</div><div class="name">Ready position</div></div>
