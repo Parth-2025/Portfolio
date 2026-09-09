@@ -12,10 +12,11 @@
     --charcoal:#353535;
     --teal:#3C6E71;
     --white:#FFFFFF;
+    --bg:#EFEDE7;            /* soft warm off-white page background (not white, not dark) */
     --grey:#D9D9D9;
     --navy:#284B63;
     --radius:8px;
-    --shadow: 0 1px 2px rgba(53,53,53,0.04), 0 2px 8px rgba(53,53,53,0.05);
+    --shadow: 0 1px 2px rgba(40,75,99,0.06), 0 4px 16px rgba(40,75,99,0.07);
     /* one shared fluid width + gutter that every section aligns to */
     --maxw: min(1600px, 92vw);
     --pad-x: clamp(18px, 4vw, 48px);
@@ -26,7 +27,7 @@
   html, body{ overflow-x:clip; }
   body{
     margin:0;
-    background:var(--white);
+    background:var(--bg);
     color:var(--charcoal);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     font-size:clamp(15px, 0.45vw + 13.6px, 18px);
@@ -69,14 +70,14 @@
   .hero{ max-width:var(--maxw); margin:0 auto; padding:clamp(32px,5vw,56px) var(--pad-x) clamp(40px,6vw,64px); text-align:center; }
   .avatar-wrap{ display:flex; justify-content:center; margin-bottom:22px; }
   .avatar{
-    width:clamp(150px, 18vw, 190px); height:clamp(150px, 18vw, 190px); border-radius:50%;
-    object-fit:cover; border:4px solid var(--white);
+    width:clamp(200px, 24vw, 264px); height:clamp(200px, 24vw, 264px); border-radius:50%;
+    object-fit:cover; border:5px solid var(--white);
     box-shadow:var(--shadow);
   }
   .avatar-fallback{
-    display:none; width:clamp(150px, 18vw, 190px); height:clamp(150px, 18vw, 190px); border-radius:50%;
+    display:none; width:clamp(200px, 24vw, 264px); height:clamp(200px, 24vw, 264px); border-radius:50%;
     background:var(--navy); color:var(--white); align-items:center; justify-content:center;
-    font-size:clamp(42px, 6vw, 58px); font-weight:700; box-shadow:var(--shadow);
+    font-size:clamp(50px, 7vw, 70px); font-weight:700; box-shadow:var(--shadow);
   }
   .hero h1{ font-size:clamp(28px,4.6vw,50px); max-width:16ch; margin:0 auto; }
   .hero p.sub{ color:var(--charcoal); opacity:0.72; font-size:clamp(15px,1.1vw,18px); margin:18px auto 0; max-width:56ch; }
@@ -461,26 +462,46 @@
     mouse.x = -9999; mouse.y = -9999;
   });
 
-  var LINK_DIST = 140;
-  var REPEL_DIST = 110;
+  var LINK_DIST = 145;
+  var REPEL_DIST = 175;
+  var CURSOR_DIST = 240;   // reach of the interactive web that follows the cursor
+  var MAXV = 2.6;
 
   function stepParticles(){
     ctx.clearRect(0, 0, W, Hpx);
 
+    var mActive = mouse.x > -9998;
+
+    // soft glow trailing the cursor
+    if (mActive){
+      var glow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, CURSOR_DIST * 0.7);
+      glow.addColorStop(0, 'rgba(60,110,113,0.10)');
+      glow.addColorStop(1, 'rgba(60,110,113,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, CURSOR_DIST * 0.7, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     for (var i = 0; i < particles.length; i++){
       var p = particles[i];
+      var dx = p.x - mouse.x, dy = p.y - mouse.y;
+      var dist = Math.sqrt(dx*dx + dy*dy);
 
       if (!reduceMotion){
-        // gentle repulsion from cursor
-        var dx = p.x - mouse.x, dy = p.y - mouse.y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < REPEL_DIST && dist > 0.01){
+        if (mActive && dist < REPEL_DIST && dist > 0.01){
           var force = (REPEL_DIST - dist) / REPEL_DIST;
-          p.vx += (dx / dist) * force * 0.06;
-          p.vy += (dy / dist) * force * 0.06;
+          // push away from the cursor
+          p.vx += (dx / dist) * force * 0.16;
+          p.vy += (dy / dist) * force * 0.16;
+          // + a little swirl so the field visibly stirs
+          p.vx += (-dy / dist) * force * 0.06;
+          p.vy += ( dx / dist) * force * 0.06;
         }
-        p.vx *= 0.98;
-        p.vy *= 0.98;
+        p.vx *= 0.955;
+        p.vy *= 0.955;
+        var sp = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+        if (sp > MAXV){ p.vx = p.vx / sp * MAXV; p.vy = p.vy / sp * MAXV; }
         p.x += p.vx;
         p.y += p.vy;
       }
@@ -488,10 +509,22 @@
       if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
       if (p.y < 0) p.y = Hpx; if (p.y > Hpx) p.y = 0;
 
+      // particles near the cursor brighten and grow
+      var near = mActive ? Math.max(0, 1 - dist / CURSOR_DIST) : 0;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(60,110,113,0.35)';
+      ctx.arc(p.x, p.y, 1.6 + near * 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(60,110,113,' + (0.32 + near * 0.55) + ')';
       ctx.fill();
+
+      // line tying each near particle back to the cursor
+      if (near > 0){
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = 'rgba(60,110,113,' + (0.33 * near) + ')';
+        ctx.lineWidth = 1.1;
+        ctx.stroke();
+      }
     }
 
     for (var a = 0; a < particles.length; a++){
@@ -503,7 +536,7 @@
           ctx.beginPath();
           ctx.moveTo(pa.x, pa.y);
           ctx.lineTo(pb.x, pb.y);
-          ctx.strokeStyle = 'rgba(217,217,217,' + (0.6 * (1 - d / LINK_DIST)) + ')';
+          ctx.strokeStyle = 'rgba(120,128,130,' + (0.5 * (1 - d / LINK_DIST)) + ')';
           ctx.lineWidth = 1;
           ctx.stroke();
         }
